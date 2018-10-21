@@ -1,0 +1,31 @@
+class CfgFunctions 
+{
+	#include "vcom\cfgFunctions.hpp"
+};
+
+class Extended_PreInit_EventHandlers {
+	VCM_CBASettings = call compile preprocessFileLineNumbers "Vcom\Functions\VCM_CBASettings.sqf";
+};
+
+class CfgSounds
+{
+	sounds[] = {};
+	class acpl_ied_nokia_sound
+	{
+		name = "acpl_ied_nokia_sound";
+		sound[] = {"\acpl_sounds\nokia.ogg", 1, 1, 25};
+		titles[] = {0,""};
+	};
+	class acpl_ied_nokia_sound_full
+	{
+		name = "acpl_ied_nokia_sound_full";
+		sound[] = {"\acpl_sounds\nokia_full.ogg", 1, 1, 25};
+		titles[] = {0,""};
+	};
+	class acpl_ied_trigger
+	{
+		name = "acpl_ied_trigger";
+		sound[] = {"\acpl_sounds\trigger.ogg", 1, 1, 5};
+		titles[] = {0,""};
+	};
+};
