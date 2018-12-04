@@ -1,21 +1,29 @@
-private ["_unit","_position","_enableduckig","_start_dir","_s_num","_hideweapon","_canrun","_enemy","_dowatch_dir","_anim_choosen","_enemy","_animation","_run","_getlow","_animationlist", "_anim"];
+private ["_start_dir","_s_num","_enemy","_dowatch_dir","_anim_choosen","_enemy", "_anim"];
 
-_unit = _this select 0;
-_position = _this select 1;
-_enableduckig = _this select 2;
-if (isNil {_this select 3}) then {_hideweapon = false;} else {_hideweapon = _this select 3;};
-if (isNil {_this select 4}) then {_canrun = false;} else {_canrun = _this select 4;};
-if (isNil {_this select 5}) then {_run = false;} else {_run = _this select 5;};
-if (isNil {_this select 6}) then {_getlow = false;} else {_getlow = _this select 6;};
-if (isNil {_this select 7}) then {_animation = true;} else {_animation = _this select 7;};
-if (isNil {_this select 8}) then {_animationlist = ["STAND","STAND_IA","STAND_U1","STAND_U2","STAND_U3","WATCH1","WATCH2","GUARD"];} else {_animationlist = _this select 8;};
+params [
+"_unit",
+"_position",
+"_enableduckig",
+["_hideweapon",false],
+["_canrun",false],
+["_run",false],
+["_getlow",false],
+["_animation",true],
+["_animationlist",["STAND","STAND_IA","STAND_U1","STAND_U2","STAND_U3","WATCH1","WATCH2","GUARD"]],
+["_snap", objNull],
+["_snap_exit", nil]
+];
 
 //_nul = [this,"up",true,false,false,false,false,true] execVM "acpl_fncs\dostop.sqf";
-//v2.0
+//v2.2b
 
 if (!isserver) exitwith {};
 
 _start_dir = getDir _unit;
+
+[_unit,"MOVE"] remoteExec ["EnableAI",0];
+[_unit,"PATH"] remoteExec ["DisableAI",0];
+[_unit,"AUTOCOMBAT"] remoteExec ["DisableAI",0];
 
 waitUntil {acpl_fncs_initied};
 
@@ -45,46 +53,55 @@ if (_canrun) then {
 _unit setunitpos _position;
 _unit setVariable ["VCOM_NOAI",true];
 _unit setVariable ["Vcm_Disable",true];
-[_unit,"PATH"] remoteExec ["DisableAI",0];
-[_unit,"AUTOCOMBAT"] remoteExec ["DisableAI",0];
 _unit domove (position _unit);
 sleep 1;
 _unit dowatch _dowatch_dir;
 if (_enableduckig) then {_nul = [_unit] execVM "acpl_fncs\AI\reload_duck.sqf";};
 
-if (_animation) then {
-	_anim = _animationlist select floor(random(count _animationlist));
-	[_unit, _anim] call acpl_play_anim;
+waitUntil {acpl_mainloop_done};
+
+if (vehicle _unit == _unit) then {
+	if (_animation) then {
+		_anim = _animationlist select floor(random(count _animationlist));
+		sleep 2;
+		[_unit, _anim, _snap] call acpl_play_anim;
+	};
 };
 
 while {(alive _unit)} do {
 	if (_unit getvariable "acpl_dostop") then {
-		if ((_s_num != (_unit getvariable "acpl_dostop_pos")) OR (unitPos _unit != _position)) then {
-			if ((_unit getvariable "acpl_dostop_pos") == 0) then {_unit setunitpos "down";};
-			if ((_unit getvariable "acpl_dostop_pos") == 1) then {_unit setunitpos "middle";};
-			if ((_unit getvariable "acpl_dostop_pos") == 2) then {_unit setunitpos "up";};
-		};
-		if (_run) then {
-			if (([_unit,_enemy,acpl_betterAI_detection] call acpl_check_knowsaboutenemy) OR ([_unit,acpl_betterAI_detection] call acpl_check_seebody)) then {
-				_unit setvariable ["acpl_dostop",false,true];
+		if (vehicle _unit == _unit) then {
+			if ((_s_num != (_unit getvariable "acpl_dostop_pos")) OR (unitPos _unit != _position)) then {
+				if ((_unit getvariable "acpl_dostop_pos") == 0) then {_unit setunitpos "down";};
+				if ((_unit getvariable "acpl_dostop_pos") == 1) then {_unit setunitpos "middle";};
+				if ((_unit getvariable "acpl_dostop_pos") == 2) then {_unit setunitpos "up";};
 			};
-		};
-		if (_getlow) then {
-			if ((([_unit,_enemy,acpl_betterAI_detection] call acpl_check_knowsaboutenemy) OR ([_unit,acpl_betterAI_detection] call acpl_check_seebody)) AND !(_unit getvariable "acpl_dostop_lower")) then {
-				_unit setvariable ["acpl_dostop_lower",true,true];
-				if (_unit getvariable "acpl_dostop_pos" > 0) then {
-					_unit setvariable ["acpl_dostop_pos",(_unit getvariable "acpl_dostop_pos") - 1,true];
+			if (_run) then {
+				if (([_unit,_enemy,acpl_betterAI_detection] call acpl_check_knowsaboutenemy) OR ([_unit,acpl_betterAI_detection] call acpl_check_seebody)) then {
+					_unit setvariable ["acpl_dostop",false,true];
 				};
 			};
-		};
-		if (_animation) then {
-			if (([_unit,_enemy,acpl_betterAI_detection] call acpl_check_knowsaboutenemy) OR ([_unit,acpl_betterAI_detection] call acpl_check_seebody)) then {
-				if ((_unit getVariable "acpl_anim")) then {
-					_unit call acpl_func_animterminate;
+			if (_getlow) then {
+				if ((([_unit,_enemy,acpl_betterAI_detection] call acpl_check_knowsaboutenemy) OR ([_unit,acpl_betterAI_detection] call acpl_check_seebody)) AND !(_unit getvariable "acpl_dostop_lower")) then {
+					_unit setvariable ["acpl_dostop_lower",true,true];
+					if (_unit getvariable "acpl_dostop_pos" > 0) then {
+						_unit setvariable ["acpl_dostop_pos",(_unit getvariable "acpl_dostop_pos") - 1,true];
+					};
 				};
-			} else {
-				if (!(_unit getVariable "acpl_anim")) then {
-					[_unit, _anim] call acpl_play_anim;
+			};
+			if (_animation) then {
+				if (([_unit,_enemy,acpl_betterAI_detection] call acpl_check_knowsaboutenemy) OR ([_unit,acpl_betterAI_detection] call acpl_check_seebody)) then {
+					if ((_unit getVariable "acpl_anim")) then {
+						_unit call acpl_func_animterminate;
+						if (!(isNil "_snap_exit")) then {
+							_unit setpos _snap_exit;
+						};
+					};
+				};
+				if ((!(_unit getVariable "acpl_anim")) AND (!([_unit,_enemy,acpl_betterAI_detection] call acpl_check_knowsaboutenemy)) AND (!([_unit,acpl_betterAI_detection] call acpl_check_seebody))) then {
+					if ((isNull _snap) OR ((getpos _snap) distance (getpos _unit) < 1)) then {
+						[_unit, _anim, _snap] call acpl_play_anim;
+					};
 				};
 			};
 		};
