@@ -1,11 +1,13 @@
 private [];
 
 //ACPL BetterAI
-//v1.1a
+//v1.1b
 
 if (!isserver) exitwith {};
 
 waitUntil {acpl_fncs_initied};
+
+waitUntil {acpl_mainloop_done};
 
 acpl_betterAI_inited = false;
 
@@ -17,6 +19,10 @@ publicvariable "acpl_betterAI_donegroups";
 
 acpl_betterAI_morale_done = [];
 publicvariable "acpl_betterAI_morale_done";
+
+acpl_betterAI_info_west = [];
+acpl_betterAI_info_east = [];
+acpl_betterAI_info_resistance = [];
 
 [] execVM "acpl_configs\weapons.sqf";
 
@@ -386,8 +392,8 @@ acpl_betterAI_see_enemy = {
 	
 	if (isPlayer _unit) exitwith {};
 
-	_skill = ((_unit skill "spotTime") * 10);
-	_sleep = acpl_betterAI_detection_time + (acpl_betterAI_detection_time / _skill);
+	_skill = (_unit skill "spotTime");
+	_sleep = acpl_betterAI_detection_time - (acpl_betterAI_detection_time * _skill);
 
 	sleep _sleep;
 	if ((alive _unit) AND ([_unit,_enemy,acpl_betterAI_detection] call acpl_check_knowsaboutenemy)) then {
@@ -404,7 +410,7 @@ acpl_betterAI_see_body = {
 	if (isPlayer _unit) exitwith {};
 
 	_skill = ((_unit skill "spotTime") * 10);
-	_sleep = acpl_betterAI_detection_time + (acpl_betterAI_detection_time / _skill);
+	_sleep = acpl_betterAI_detection_time - (acpl_betterAI_detection_time * _skill);
 
 	sleep _sleep;
 	if ((alive _unit) AND ([_unit,acpl_betterAI_detection] call acpl_check_seebody)) then {
