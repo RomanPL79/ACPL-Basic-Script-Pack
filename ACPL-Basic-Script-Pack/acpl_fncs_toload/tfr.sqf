@@ -67,7 +67,7 @@ acpl_tfr_giveradio_sw = {
 	[_caller, _radio_o] remoteExec ["linkItem",_caller];
 	[_radio_o, _settings_o] call TFAR_fnc_setSwSettings;
 	[_owner, _radio_o] remoteExec ["unlinkItem",_owner];
-	["Poda≥eú radio"] remoteExec ["hint",_caller];
+	["Poda≈Çe≈õ radio"] remoteExec ["hint",_caller];
 	["Podano ci radio"] remoteExec ["hint",_owner];
 	
 	[_owner, _caller] spawn {
@@ -79,7 +79,15 @@ acpl_tfr_giveradio_sw = {
 		while {_owner getVariable "acpl_radio_borrowed_sw"} do {
 			if (_owner distance _caller > 2.5) then {
 				[[_caller],acpl_tfr_giveback_sw] remoteExec ["call",2];
-				["Odszed≥eú zbyt daleko!"] remoteExec ["systemchat",_caller];
+				["Odszed≈Çe≈õ zbyt daleko!"] remoteExec ["systemchat",_caller];
+			};
+			if (!(alive _owner)) then {
+				[[_caller],acpl_tfr_giveback_sw] remoteExec ["call",2];
+				["W≈Ça≈õciciel zosta≈Ç zabity!"] remoteExec ["systemchat",_caller];
+			};
+			if (!(alive _caller)) then {
+				[[_caller],acpl_tfr_giveback_sw] remoteExec ["call",2];
+				["Po≈ºyczajƒÖcy zosta≈Ç zabity!"] remoteExec ["systemchat",_caller];
 			};
 			sleep 1;
 		};
@@ -114,7 +122,7 @@ acpl_tfr_giveback_sw = {
 		[_radio_c, _settings_c] call TFAR_fnc_setSwSettings;
 	};
 	["Oddano ci radio"] remoteExec ["hint",_owner];
-	["Odda≥eú radio"] remoteExec ["hint",_caller];
+	["Odda≈Çe≈õ radio"] remoteExec ["hint",_caller];
 };
 publicvariable "acpl_tfr_giveback_sw";
 
@@ -163,7 +171,7 @@ acpl_tfr_giveradio_lr = {
 	{[_caller, _x] remoteExec ["additemtobackpack",_caller];} foreach (_radio_o select 1);
 	[([_caller] call acpl_tfr_class_lrradio) select 0, ([_caller] call acpl_tfr_class_lrradio) select 1, _settings] call TFAR_fnc_setLrSettings;
 	[_owner] remoteExec ["removebackpack",0];
-	["Poda≥eú radio"] remoteExec ["hint",_caller];
+	["Poda≈Çe≈õ radio"] remoteExec ["hint",_caller];
 	["Podano ci radio"] remoteExec ["hint",_owner];
 	
 	[_owner, _caller] spawn {
@@ -175,7 +183,15 @@ acpl_tfr_giveradio_lr = {
 		while {_owner getVariable "acpl_radio_borrowed_lr"} do {
 			if (_owner distance _caller > 2.5) then {
 				[[_caller],acpl_tfr_giveback_lr] remoteExec ["call",2];
-				["Odszed≥eú zbyt daleko!"] remoteExec ["systemchat",_caller];
+				["Odszed≈Çe≈õ zbyt daleko!"] remoteExec ["systemchat",_caller];
+			};
+			if (!(alive _owner)) then {
+				[[_caller],acpl_tfr_giveback_lr] remoteExec ["call",2];
+				["W≈Ça≈õciciel zosta≈Ç zabity!"] remoteExec ["systemchat",_caller];
+			};
+			if (!(alive _caller)) then {
+				[[_caller],acpl_tfr_giveback_lr] remoteExec ["call",2];
+				["Po≈ºyczajƒÖcy zosta≈Ç zabity!"] remoteExec ["systemchat",_caller];
 			};
 			sleep 1;
 		};
@@ -208,7 +224,7 @@ acpl_tfr_giveback_lr = {
 		[_caller] call zade_boc_fnc_actionOnBack;
 	};
 	["Oddano ci radio"] remoteExec ["hint",_owner];
-	["Odda≥eú radio"] remoteExec ["hint",_caller];
+	["Odda≈Çe≈õ radio"] remoteExec ["hint",_caller];
 };
 publicvariable "acpl_tfr_giveback_lr";
 
@@ -223,75 +239,6 @@ acpl_tfr_check_speakvolume = {
 	if (_unit getvariable "acpl_tfr_speakvolume_max" != _volume_max) then {_unit setVariable ["acpl_tfr_speakvolume_max",_volume_max,true];};
 };
 publicvariable "acpl_tfr_check_speakvolume";
-
-acpl_tfr_isspeaking = {
-	private ["_unit","_volume"];
-
-	_unit = _this select 0;
-	_volume = _this select 1;
-
-	{
-		if (_x distance _unit <= _volume) then {
-			private ["_distance","_multipler","_knows"];
-			
-			_distance = _x distance _unit;
-			_multipler = acpl_tfr_know - (acpl_tfr_know * (_distance / _volume));
-			_knows = _x knowsAbout _unit;
-			
-			if (acpl_tfr_debug) then {["Distance: " + str(_distance)] remoteExec ["systemchat",_unit];};
-			if (acpl_tfr_debug) then {["Knows: " + str(_knows)] remoteExec ["systemchat",_unit];};
-			if (acpl_tfr_debug) then {["Multiplier: " + str(_multipler)] remoteExec ["systemchat",_unit];};
-			
-			if ([_unit,_x getVariable "acpl_tfr_knows"] call acpl_tfr_check_inlist) then {
-				if ([_unit,_x getVariable "acpl_tfr_knows",_multipler,_knows] call acpl_tfr_check_change) then {
-					private ["_change"];
-					
-					_change = [_unit,_x getVariable "acpl_tfr_knows"] call acpl_tfr_find_change;
-					if (acpl_tfr_debug) then {["WrÛg ciÍ us≥ysza≥"] remoteExec ["systemchat",_unit];};
-					if (acpl_tfr_debug) then {["Basic KnowsAbout: " + str(_knows)] remoteExec ["systemchat",_unit];};
-					if (acpl_tfr_debug) then {["Multiplier: " + str(_multipler)] remoteExec ["systemchat",_unit];};
-					if (_knows + _multipler > 4) then {
-						[_x,[_unit, 4]] remoteExec ["reveal",0];
-						if (acpl_tfr_debug) then {["OsiπgniÍto maksymalne wykrycie"] remoteExec ["systemchat",_unit];};
-						_x setVariable ["acpl_tfr_knows",(_x getVariable "acpl_tfr_knows") - _change + [[_unit, _multipler, 4, time]],true];
-					} else {
-						[_x,[_unit, _knows + _multipler]] remoteExec ["reveal",0];
-						if (acpl_tfr_debug) then {["Doliczono Multiplier"] remoteExec ["systemchat",_unit];};
-						_x setVariable ["acpl_tfr_knows",(_x getVariable "acpl_tfr_knows") - _change + [[_unit, _multipler, 4, time]],true];
-					};
-				};
-			} else {
-				if (acpl_tfr_debug) then {["WrÛg ciÍ us≥ysza≥"] remoteExec ["systemchat",_unit];};
-				if (acpl_tfr_debug) then {["Basic KnowsAbout: " + str(_knows)] remoteExec ["systemchat",_unit];};
-				if (acpl_tfr_debug) then {["Multiplier: " + str(_multipler)] remoteExec ["systemchat",_unit];};
-				if (_knows + _multipler > 4) then {
-					[_x,[_unit, 4]] remoteExec ["reveal",0];
-					if (acpl_tfr_debug) then {["OsiπgniÍto maksymalne wykrycie"] remoteExec ["systemchat",_unit];};
-					_x setVariable ["acpl_tfr_knows",(_x getVariable "acpl_tfr_knows") + [[_unit, _multipler, 4, time]],true];
-				} else {
-					[_x,[_unit, _knows + _multipler]] remoteExec ["reveal",0];
-					if (acpl_tfr_debug) then {["Doliczono Multiplier"] remoteExec ["systemchat",_unit];};
-					_x setVariable ["acpl_tfr_knows",(_x getVariable "acpl_tfr_knows") + [[_unit, _multipler, _knows + _multipler, time]],true];
-				};
-			};
-		};
-	} foreach allunits;
-};
-publicvariable "acpl_tfr_isspeaking";
-
-acpl_tfr_speaking_loop = {
-	while {true} do {
-		{
-			private ["_volume"];
-			
-			_volume = _x getVariable "acpl_tfr_speakvolume";
-			if (_x getvariable "acpl_tfr_speaking") then {[[_x, _volume],acpl_tfr_isspeaking] remoteExec ["spawn",2];};
-		} foreach allunits;
-		sleep 0.25;
-		if (acpl_tfr_debug) then {["PÍtla zakoÒczona"] remoteExec ["systemchat",0];};
-	};
-};
-publicvariable "acpl_tfr_speaking_loop";
 
 acpl_tfr_find_change = {
 	private ["_unit","_var","_return"];
@@ -345,52 +292,6 @@ acpl_tfr_check_inlist = {
 	_return
 };
 publicvariable "acpl_tfr_check_inlist";
-
-acpl_tfr_loop = {
-	private ["_playable"];
-	
-	acpl_tfr_done = [];
-	publicvariable "acpl_tfr_done";
-	
-	_playable = [] + playableUnits + switchableUnits + allPlayers;
-	
-	{
-		_x setVariable ["acpl_tfr_speakvolume",0,true];
-		_x setVariable ["acpl_tfr_speakvolume_max",60,true];
-		[["acpl_tfr_speak", "OnSpeak", {
-			private ["_unit","_volume","_speaking"];
-			
-			_unit = _this select 0;
-			_volume = _this select 1;
-			_speaking = _unit getvariable "acpl_tfr_speaking";
-				
-			if (_speaking) then {
-				_unit setvariable ["acpl_tfr_speaking",false,true];
-				if (acpl_tfr_debug) then {["W≥aúnie skoÒczy≥eú mÛwiÊ"] remoteExec ["systemchat",_unit];};
-			} else {
-				_unit setvariable ["acpl_tfr_speaking",true,true];
-				if (acpl_tfr_debug) then {["W≥aúnie mÛwisz"] remoteExec ["systemchat",_unit];};
-			};
-		}, _x], TFAR_fnc_addEventHandler] remoteExec ["call",_x];
-		_x setVariable ["acpl_tfr_speaking",false,true];
-	} foreach _playable;
-	
-	while {true} do {
-		{
-			[[_x], acpl_tfr_check_speakvolume] remoteExec ["call",_x];
-		} foreach _playable;
-		sleep 0.5;
-		{
-			if (!(_x in acpl_tfr_done)) then {
-				_x setVariable ["acpl_tfr_knows",[],true];
-				acpl_tfr_done = acpl_tfr_done + [_x];
-				publicvariable "acpl_tfr_done";
-			};
-		} foreach allunits;
-		sleep 0.5;
-	};
-};
-publicvariable "acpl_tfr_loop";
 
 acpl_tfr_fncs = true;
 publicvariable "acpl_tfr_fncs";
