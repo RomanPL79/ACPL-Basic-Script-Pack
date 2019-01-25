@@ -29,7 +29,7 @@ acpl_loop = {
 	acpl_arty_bateries = [];
 	publicvariable "acpl_arty_bateries";
 	
-	_hidebody = ["acpl_hidebody", "Ukryj Cia≥o", "acpl_icons\hide.paa", {[_target] remoteExec ["hideBody",0,true];}, {!(alive _target)}] call ace_interact_menu_fnc_createAction;
+	_hidebody = ["acpl_hidebody", "Ukryj Cia≈Ço", "acpl_icons\hide.paa", {[_target] remoteExec ["hideBody",0,true];}, {!(alive _target)}] call ace_interact_menu_fnc_createAction;
 	
 	private ["_arty_call", "_arty_call_correction", "_arty_rounds_7", "_arty_rounds_6", "_arty_rounds_5", "_arty_rounds_4", "_arty_rounds_3", "_arty_rounds_2", "_arty_rounds_1", "_arty_typeoffire_point", "_arty_typeoffire_line", "_arty_typeoffire_circle", "_arty_ammo_guided", "_arty_ammo_flare", "_arty_ammo_lg", "_arty", "_arty_battery", "_arty_ammo", "_arty_typeoffire", "_arty_rounds", "_arty_correction", "_arty_call", "_arty_ammo_he", "_arty_ammo_smoke", "_arty_ammo_cluster", "_arty_ammo_mine", "_arty_ammo_mineat"];
 	
@@ -46,65 +46,65 @@ acpl_loop = {
 	_arty_ammo_lg = ["acpl_arty_ammo_lg", "LASER GUIDED", "acpl_icons\arty.paa", {["Wybrano LASER GUIDED"] remoteExec ["hint",_player];_player setVariable ["acpl_arty_ammo","lg",true];}, {(_player getvariable "acpl_arty_fo") AND ((_player getvariable "acpl_arty_chosen") getvariable "acpl_arty_lg") AND ((_player getvariable "acpl_arty_chosen") != _player)}] call ace_interact_menu_fnc_createAction;
 	_arty_ammo_guided = ["acpl_arty_ammo_guided", "GUIDED", "acpl_icons\arty.paa", {["Wybrano GUIDED"] remoteExec ["hint",_player];_player setVariable ["acpl_arty_ammo","guided",true];}, {(_player getvariable "acpl_arty_fo") AND ((_player getvariable "acpl_arty_chosen") getvariable "acpl_arty_guided") AND ((_player getvariable "acpl_arty_chosen") != _player)}] call ace_interact_menu_fnc_createAction;
 	
-	_arty_typeoffire = ["acpl_arty_typeoffire", "Rodzaj ostrza≥u", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND !(_player getvariable "acpl_arty_iscalling")}] call ace_interact_menu_fnc_createAction;
+	_arty_typeoffire = ["acpl_arty_typeoffire", "Rodzaj ostrza≈Çu", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND !(_player getvariable "acpl_arty_iscalling")}] call ace_interact_menu_fnc_createAction;
 	
 	_arty_typeoffire_point = ["acpl_arty_typeoffire_point", "Punktowy", "acpl_icons\arty.paa", {hint "Wybrano Punktowy";_player setVariable ["acpl_arty_typeoffire",0,true];}, {(_player getvariable "acpl_arty_fo") AND !(_player getvariable "acpl_arty_iscalling")}] call ace_interact_menu_fnc_createAction;
 	_arty_typeoffire_line = ["acpl_arty_typeoffire_line", "Liniowy", "acpl_icons\arty.paa", {hint "Wybrano Liniowy";_player setVariable ["acpl_arty_typeoffire",1,true];}, {(_player getvariable "acpl_arty_fo") AND !(_player getvariable "acpl_arty_iscalling")}] call ace_interact_menu_fnc_createAction;
 	_arty_typeoffire_circle = ["acpl_arty_typeoffire_circle", "Obszarowy", "acpl_icons\arty.paa", {hint "Wybrano Obszarowy";_player setVariable ["acpl_arty_typeoffire",2,true];}, {(_player getvariable "acpl_arty_fo") AND !(_player getvariable "acpl_arty_iscalling")}] call ace_interact_menu_fnc_createAction;
 	
-	_arty_rounds = ["acpl_arty_rounds", "IloúÊ pociskÛw", "acpl_icons\arty.paa", {}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
+	_arty_rounds = ["acpl_arty_rounds", "Ilo≈õƒá pocisk√≥w", "acpl_icons\arty.paa", {}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
 	
 	_arty_rounds_1 = ["acpl_arty_rounds_1", "Ustaw na 1", "acpl_icons\arty.paa", {hint "Wybrano 1 pocisk";_player setvariable ["acpl_arty_rounds",1,true];}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
 	_arty_rounds_2 = ["acpl_arty_rounds_+1", "+1", "acpl_icons\arty.paa", {
 		private ["_rounds"];
 		_rounds = (_player getvariable "acpl_arty_rounds") + 1;
-		hint ("Liczba pociskÛw: " + str(_rounds));
+		hint ("Liczba pocisk√≥w: " + str(_rounds));
 		_player setvariable ["acpl_arty_rounds",_rounds,true];
 	}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
 	_arty_rounds_3 = ["acpl_arty_rounds_+5", "+5", "acpl_icons\arty.paa", {
 		private ["_rounds"];
 		_rounds = (_player getvariable "acpl_arty_rounds") + 5;
-		hint ("Liczba pociskÛw: " + str(_rounds));
+		hint ("Liczba pocisk√≥w: " + str(_rounds));
 		_player setvariable ["acpl_arty_rounds",_rounds,true];
 	}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
 	_arty_rounds_4 = ["acpl_arty_rounds_+10", "+10", "acpl_icons\arty.paa", {
 		private ["_rounds"];
 		_rounds = (_player getvariable "acpl_arty_rounds") + 10;
-		hint ("Liczba pociskÛw: " + str(_rounds));
+		hint ("Liczba pocisk√≥w: " + str(_rounds));
 		_player setvariable ["acpl_arty_rounds",_rounds,true];
 	}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
 	_arty_rounds_5 = ["acpl_arty_rounds_-1", "-1", "acpl_icons\arty.paa", {
 		private ["_rounds"];
 		_rounds = (_player getvariable "acpl_arty_rounds") - 1;
 		if (_rounds < 1) then {_rounds = 1;};
-		hint ("Liczba pociskÛw: " + str(_rounds));
+		hint ("Liczba pocisk√≥w: " + str(_rounds));
 		_player setvariable ["acpl_arty_rounds",_rounds,true];
 	}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
 	_arty_rounds_6 = ["acpl_arty_rounds_-5", "-5", "acpl_icons\arty.paa", {
 		private ["_rounds"];
 		_rounds = (_player getvariable "acpl_arty_rounds") - 5;
 		if (_rounds < 1) then {_rounds = 1;};
-		hint ("Liczba pociskÛw: " + str(_rounds));
+		hint ("Liczba pocisk√≥w: " + str(_rounds));
 		_player setvariable ["acpl_arty_rounds",_rounds,true];
 	}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
 	_arty_rounds_7 = ["acpl_arty_rounds_-10", "-10", "acpl_icons\arty.paa", {
 		private ["_rounds"];
 		_rounds = (_player getvariable "acpl_arty_rounds") - 10;
 		if (_rounds < 1) then {_rounds = 1;};
-		hint ("Liczba pociskÛw: " + str(_rounds));
+		hint ("Liczba pocisk√≥w: " + str(_rounds));
 		_player setvariable ["acpl_arty_rounds",_rounds,true];
 	}, {_player getvariable "acpl_arty_fo"}] call ace_interact_menu_fnc_createAction;
 	
 	private ["_arty_correction_0_0", "_arty_correction", "_arty_correction_w100", "_arty_correction_w50", "_arty_correction_w10", "_arty_correction_w5", "_arty_correction_w1", "_arty_correction_s1", "_arty_correction_s5", "_arty_correction_s10", "_arty_correction_s50", "_arty_correction_s100", "_arty_correction_e50", "_arty_correction_e5", "_arty_correction_e100", "_arty_correction_e10", "_arty_correction_e1", "_arty_correction_n1", "_arty_correction_n5", "_arty_correction_n10", "_arty_correction_n50", "_arty_correction_n100", "_arty_correction_n", "_arty_correction_e", "_arty_correction_s", "_arty_correction_w"];
 	
-	_arty_correction = ["acpl_arty_correction", "Ustaw poprawkÍ", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
+	_arty_correction = ["acpl_arty_correction", "Ustaw poprawkƒô", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	
-	_arty_correction_0_0 = ["acpl_arty_correction_0_0", "Wyzeruj poprawkÍ", "acpl_icons\arty.paa", {
+	_arty_correction_0_0 = ["acpl_arty_correction_0_0", "Wyzeruj poprawkƒô", "acpl_icons\arty.paa", {
 		hint "Aktualna poprawka: 0E, 0N";
 		_player setVariable ["acpl_arty_correction",[0,0],true];
 	}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	
-	_arty_correction_n = ["acpl_arty_correction_n", "PÛ≥noc", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
+	_arty_correction_n = ["acpl_arty_correction_n", "P√≥≈Çnoc", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	_arty_correction_n1 = ["acpl_arty_correction_n1", "+1m", "acpl_icons\arty.paa", {
 		private ["_cor", "_cor_x", "_cor_y", "_info_x", "_info_y"];
 		_cor = [_player,0,1] call acpl_arty_make_correction;
@@ -156,7 +156,7 @@ acpl_loop = {
 		_player setVariable ["acpl_arty_correction",_cor,true];
 	}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	
-	_arty_correction_e = ["acpl_arty_correction_e", "WschÛd", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
+	_arty_correction_e = ["acpl_arty_correction_e", "Wsch√≥d", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	_arty_correction_e1 = ["acpl_arty_correction_e1", "+1m", "acpl_icons\arty.paa", {
 		private ["_cor", "_cor_x", "_cor_y", "_info_x", "_info_y"];
 		_cor = [_player,1,0] call acpl_arty_make_correction;
@@ -208,7 +208,7 @@ acpl_loop = {
 		_player setVariable ["acpl_arty_correction",_cor,true];
 	}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	
-	_arty_correction_s = ["acpl_arty_correction_s", "Po≥udnie", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
+	_arty_correction_s = ["acpl_arty_correction_s", "Po≈Çudnie", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	_arty_correction_s1 = ["acpl_arty_correction_s1", "+1m", "acpl_icons\arty.paa", {
 		private ["_cor", "_cor_x", "_cor_y", "_info_x", "_info_y"];
 		_cor = [_player,0,-1] call acpl_arty_make_correction;
@@ -260,7 +260,7 @@ acpl_loop = {
 		_player setVariable ["acpl_arty_correction",_cor,true];
 	}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	
-	_arty_correction_w = ["acpl_arty_correction_w", "ZachÛd", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
+	_arty_correction_w = ["acpl_arty_correction_w", "Zach√≥d", "acpl_icons\arty.paa", {}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	_arty_correction_w1 = ["acpl_arty_correction_w1", "+1m", "acpl_icons\arty.paa", {
 		private ["_cor", "_cor_x", "_cor_y", "_info_x", "_info_y"];
 		_cor = [_player,-1,0] call acpl_arty_make_correction;
@@ -312,23 +312,23 @@ acpl_loop = {
 		_player setVariable ["acpl_arty_correction",_cor,true];
 	}, {(_player getvariable "acpl_arty_fo") AND (count (_player getVariable "acpl_arty_lastfire") > 0) AND !(_player getvariable "acpl_arty_iscalling") AND ([_player] call acpl_arty_check_lastfire)}] call ace_interact_menu_fnc_createAction;
 	
-	_arty_checkammo = ["acpl_arty_checkammo", "Sprawdü stan amunicji", "acpl_icons\arty.paa", {[[_player],acpl_arty_sendammo] remoteExec ["spawn",2];}, {(_player getvariable "acpl_arty_fo") AND (_player getvariable "acpl_arty_chosen" != _player) AND !(_player getvariable "acpl_arty_iscalling") AND !((_player getvariable "acpl_arty_chosen") getvariable "acpl_arty_battery_busy")}] call ace_interact_menu_fnc_createAction;
+	_arty_checkammo = ["acpl_arty_checkammo", "Sprawd≈∫ stan amunicji", "acpl_icons\arty.paa", {[[_player],acpl_arty_sendammo] remoteExec ["spawn",2];}, {(_player getvariable "acpl_arty_fo") AND (_player getvariable "acpl_arty_chosen" != _player) AND !(_player getvariable "acpl_arty_iscalling") AND !((_player getvariable "acpl_arty_chosen") getvariable "acpl_arty_battery_busy")}] call ace_interact_menu_fnc_createAction;
 	_arty_call = ["acpl_arty_call", "Wezwij", "acpl_icons\arty.paa", {
 		[[_player], acpl_arty_takecoordinates] remoteExec ["spawn",2];
 	}, {(_player getvariable "acpl_arty_fo") AND (_player getvariable "acpl_arty_chosen" != _player) AND !(_player getvariable "acpl_arty_iscalling") AND !((_player getvariable "acpl_arty_chosen") getvariable "acpl_arty_battery_busy")}] call ace_interact_menu_fnc_createAction;
-	_arty_call_correction = ["acpl_arty_call_correction", "Wezwij z poprawkπ", "acpl_icons\arty.paa", {[[_player], acpl_arty_call_corrected] remoteExec ["spawn",2];}, {(_player getvariable "acpl_arty_fo") AND (_player getvariable "acpl_arty_chosen" != _player) AND ([_player] call acpl_arty_check_lastfire) AND (!(_player getvariable "acpl_arty_iscalling")) AND (!((_player getvariable "acpl_arty_chosen") getvariable "acpl_arty_battery_busy")) AND ((_player getvariable "acpl_arty_ammo") != "")}] call ace_interact_menu_fnc_createAction;
+	_arty_call_correction = ["acpl_arty_call_correction", "Wezwij z poprawkƒÖ", "acpl_icons\arty.paa", {[[_player], acpl_arty_call_corrected] remoteExec ["spawn",2];}, {(_player getvariable "acpl_arty_fo") AND (_player getvariable "acpl_arty_chosen" != _player) AND ([_player] call acpl_arty_check_lastfire) AND (!(_player getvariable "acpl_arty_iscalling")) AND (!((_player getvariable "acpl_arty_chosen") getvariable "acpl_arty_battery_busy")) AND ((_player getvariable "acpl_arty_ammo") != "")}] call ace_interact_menu_fnc_createAction;
 	_arty_call_cancel = ["acpl_arty_call_cancel", "Anuluj", "acpl_icons\arty.paa", {_player setVariable ["acpl_arty_cancel",true,true];}, {(_player getvariable "acpl_arty_fo") AND (_player getvariable "acpl_arty_iscalling")}] call ace_interact_menu_fnc_createAction;
 	
 	private ["_radio","_radio_2","_radio_lower_sw","_radio_lower_lr","_radio_onhead_sw","_radio_onhead_lr","_radio_ask_sw","_radio_ask_lr","_radio_asked_sw","_radio_asked_lr","_radio_return_sw","_radio_return_lr"];
 	
 	_radio = ["acpl_radio_menu", "Opcje Radia", "acpl_icons\radio.paa", {}, {(call TFAR_fnc_haveSWRadio) OR (call TFAR_fnc_haveLRRadio)}] call ace_interact_menu_fnc_createAction;
-	_radio_lower_sw = ["acpl_radio_lowerheadset_sw", "Zdejmij s≥uchawki (SW)", "acpl_icons\radio.paa", {private ["_volume"];_volume = (call TFAR_fnc_ActiveSwRadio) call TFAR_fnc_getSwVolume;_player setvariable ["acpl_radio_volume_sw",_volume,true];_player setvariable ["acpl_radio_lower_sw",true,true];[(call TFAR_fnc_ActiveSWRadio), 1] call TFAR_fnc_setSwVolume;hint "Zdjπ≥eú s≥uchawki z radia krÛtkiego";}, {(call TFAR_fnc_haveSWRadio) AND !(_player getvariable "acpl_radio_lower_sw")}] call ace_interact_menu_fnc_createAction;
-	_radio_onhead_sw = ["acpl_radio_headset_sw", "Za≥Ûø s≥uchawki (SW)", "acpl_icons\radio.paa", {_player setvariable ["acpl_radio_lower_sw",false,true];[(call TFAR_fnc_ActiveSWRadio), (_player getvariable "acpl_radio_volume_sw")] call TFAR_fnc_setSwVolume;hint "Za≥oøy≥eú s≥uchawki z radia krÛtkiego";}, {(call TFAR_fnc_haveSWRadio) AND (_player getvariable "acpl_radio_lower_sw")}] call ace_interact_menu_fnc_createAction;
-	_radio_lower_lr = ["acpl_radio_lowerheadset_lr", "Zdejmij s≥uchawki (LR)", "acpl_icons\radio.paa", {private ["_volume"];_volume = (call TFAR_fnc_ActiveLrRadio) call TFAR_fnc_getLrVolume;_player setvariable ["acpl_radio_volume_lr",_volume,true];_player setvariable ["acpl_radio_lower_lr",true,true];[(call TFAR_fnc_ActiveLrRadio), 1] call TFAR_fnc_setLrVolume;hint "Zdjπ≥eú s≥uchawki z radia d≥ugiego";}, {(call TFAR_fnc_haveLRRadio) AND !(_player getvariable "acpl_radio_lower_lr")}] call ace_interact_menu_fnc_createAction;
-	_radio_onhead_lr = ["acpl_radio_headset_lr", "Za≥Ûø s≥uchawki (LR)", "acpl_icons\radio.paa", {_player setvariable ["acpl_radio_lower_lr",false,true];[(call TFAR_fnc_ActiveLRRadio), (_player getvariable "acpl_radio_volume_lr")] call TFAR_fnc_setLrVolume;hint "Za≥oøy≥eú s≥uchawki z radia d≥ugiego";}, {(call TFAR_fnc_haveLRRadio) AND (_player getvariable "acpl_radio_lower_lr")}] call ace_interact_menu_fnc_createAction;
-	_radio_ask_sw = ["acpl_radio_ask_sw", "Poproú o poøyczenie radia (SW)", "acpl_icons\radio.paa", {
+	_radio_lower_sw = ["acpl_radio_lowerheadset_sw", "Zdejmij s≈Çuchawki (SW)", "acpl_icons\radio.paa", {private ["_volume"];_volume = (call TFAR_fnc_ActiveSwRadio) call TFAR_fnc_getSwVolume;_player setvariable ["acpl_radio_volume_sw",_volume,true];_player setvariable ["acpl_radio_lower_sw",true,true];[(call TFAR_fnc_ActiveSWRadio), 1] call TFAR_fnc_setSwVolume;hint "ZdjƒÖ≈Çe≈õ s≈Çuchawki z radia kr√≥tkiego";}, {(call TFAR_fnc_haveSWRadio) AND !(_player getvariable "acpl_radio_lower_sw")}] call ace_interact_menu_fnc_createAction;
+	_radio_onhead_sw = ["acpl_radio_headset_sw", "Za≈Ç√≥≈º s≈Çuchawki (SW)", "acpl_icons\radio.paa", {_player setvariable ["acpl_radio_lower_sw",false,true];[(call TFAR_fnc_ActiveSWRadio), (_player getvariable "acpl_radio_volume_sw")] call TFAR_fnc_setSwVolume;hint "Za≈Ço≈ºy≈Çe≈õ s≈Çuchawki z radia kr√≥tkiego";}, {(call TFAR_fnc_haveSWRadio) AND (_player getvariable "acpl_radio_lower_sw")}] call ace_interact_menu_fnc_createAction;
+	_radio_lower_lr = ["acpl_radio_lowerheadset_lr", "Zdejmij s≈Çuchawki (LR)", "acpl_icons\radio.paa", {private ["_volume"];_volume = (call TFAR_fnc_ActiveLrRadio) call TFAR_fnc_getLrVolume;_player setvariable ["acpl_radio_volume_lr",_volume,true];_player setvariable ["acpl_radio_lower_lr",true,true];[(call TFAR_fnc_ActiveLrRadio), 1] call TFAR_fnc_setLrVolume;hint "ZdjƒÖ≈Çe≈õ s≈Çuchawki z radia d≈Çugiego";}, {(call TFAR_fnc_haveLRRadio) AND !(_player getvariable "acpl_radio_lower_lr")}] call ace_interact_menu_fnc_createAction;
+	_radio_onhead_lr = ["acpl_radio_headset_lr", "Za≈Ç√≥≈º s≈Çuchawki (LR)", "acpl_icons\radio.paa", {_player setvariable ["acpl_radio_lower_lr",false,true];[(call TFAR_fnc_ActiveLRRadio), (_player getvariable "acpl_radio_volume_lr")] call TFAR_fnc_setLrVolume;hint "Za≈Ço≈ºy≈Çe≈õ s≈Çuchawki z radia d≈Çugiego";}, {(call TFAR_fnc_haveLRRadio) AND (_player getvariable "acpl_radio_lower_lr")}] call ace_interact_menu_fnc_createAction;
+	_radio_ask_sw = ["acpl_radio_ask_sw", "Popro≈õ o po≈ºyczenie radia (SW)", "acpl_icons\radio.paa", {
 		if (isPlayer _target) then {
-			["Zosta≥eú poproszony o poøyczenie radia (SW)"] remoteExec ["hint",_target];
+			["Zosta≈Çe≈õ poproszony o po≈ºyczenie radia (SW)"] remoteExec ["hint",_target];
 			_target setVariable ["acpl_radio_asked_sw_target",_player,true];
 			_target setVariable ["acpl_radio_asked_sw",true,true];
 		} else {
@@ -336,9 +336,9 @@ acpl_loop = {
 			[[_target],acpl_tfr_giveradio_sw] remoteExec ["call",2];
 		};
 	}, {([_target] call acpl_tfr_check_swradio) AND !(_player getvariable "acpl_radio_borrowed_sw") AND !(_target getvariable "acpl_radio_borrowed_sw")}] call ace_interact_menu_fnc_createAction;
-	_radio_ask_lr = ["acpl_radio_ask_lr", "Poproú o poøyczenie radia (LR)", "acpl_icons\radio.paa", {
+	_radio_ask_lr = ["acpl_radio_ask_lr", "Popro≈õ o po≈ºyczenie radia (LR)", "acpl_icons\radio.paa", {
 		if (isPlayer _target) then {
-			["Zosta≥eú poproszony o poøyczenie radia (LR)"] remoteExec ["hint",_target];
+			["Zosta≈Çe≈õ poproszony o po≈ºyczenie radia (LR)"] remoteExec ["hint",_target];
 			_target setVariable ["acpl_radio_asked_lr_target",_player,true];
 			_target setVariable ["acpl_radio_asked_lr",true,true];
 		} else {
@@ -777,7 +777,7 @@ acpl_loop = {
 				
 				{[_x,"move"] remoteExec ["disableAI",0];} foreach _playable;
 				
-				_action = ["acpl_ai_action", "Odblokuj AI", "acpl_icons\run.paa", {{[_x,"move"] remoteExec ["enableAI",0];} foreach (units (group _player));hint "Odblokowa≥eú AI w swojej grupie";}, {_player == leader (group _player)}] call ace_interact_menu_fnc_createAction;
+				_action = ["acpl_ai_action", "Odblokuj AI", "acpl_icons\run.paa", {{[_x,"move"] remoteExec ["enableAI",0];} foreach (units (group _player));hint "Odblokowa≈Çe≈õ AI w swojej grupie";}, {_player == leader (group _player)}] call ace_interact_menu_fnc_createAction;
 				[[(_x), 1, ["ACE_SelfActions"], _action],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
 				
 				acpl_static_done = acpl_static_done + [_x];
