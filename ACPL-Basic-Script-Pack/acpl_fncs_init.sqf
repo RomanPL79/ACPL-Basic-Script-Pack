@@ -1,7 +1,7 @@
 private ["_type","_vcom","_static","_playable","_action","_ied_init","_safe_start","_text","_version"];
 
 //Podstawowe skrypty ACPL
-//v1.1d
+//v1.1e
 
 _type = _this select 0;
 acpl_medical_mc = _this select 1;
@@ -12,7 +12,7 @@ _ied_init = _this select 5;
 _safe_start = _this select 6;
 _text = _this select 7;
 
-_version = "v1.1d";
+_version = "v1.1e";
 
 acpl_fnc_debug = true;
 publicvariable "acpl_fnc_debug";
