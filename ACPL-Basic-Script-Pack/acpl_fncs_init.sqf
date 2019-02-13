@@ -463,8 +463,6 @@ if (acpl_medical) then {
 };
 
 [[_static], acpl_loop] remoteExec ["spawn",2];
-[[], acpl_tfr_loop] remoteExec ["spawn",2];
-[[], acpl_tfr_speaking_loop] remoteExec ["spawn",2];
 
 acpl_fncs_initied = true;
 publicvariable "acpl_fncs_initied";
