@@ -1,21 +1,22 @@
-private ["_start_dir","_s_num","_enemy","_dowatch_dir","_anim_choosen","_enemy", "_anim"];
+private ["_start_dir","_s_num","_enemy","_dowatch_dir","_anim_choosen","_enemy", "_anim", "_ammo_count", "_ammo_start"];
 
 params [
 "_unit",
 "_position",
 "_enableduckig",
 ["_hideweapon",false],
-["_canrun",false],
+["_canrun",true],
 ["_run",false],
 ["_getlow",false],
-["_animation",true],
+["_animation",false],
 ["_animationlist",["STAND","STAND_IA","STAND_U1","STAND_U2","STAND_U3","WATCH1","WATCH2","GUARD"]],
 ["_snap", objNull],
-["_snap_exit", nil]
+["_snap_exit", nil],
+["_rearm", false]
 ];
 
 //_nul = [this,"up",true,false,false,false,false,true] execVM "acpl_fncs\dostop.sqf";
-//v2.2b
+//v2.3
 
 if (!isserver) exitwith {};
 
@@ -68,6 +69,11 @@ if (vehicle _unit == _unit) then {
 	};
 };
 
+if (_rearm) then {
+	_ammo_start = magazines _unit;
+	_ammo_count = count _ammo_start;
+};
+
 while {(alive _unit)} do {
 	if (_unit getvariable "acpl_dostop") then {
 		if (vehicle _unit == _unit) then {
@@ -102,6 +108,12 @@ while {(alive _unit)} do {
 					if ((isNull _snap) OR ((getpos _snap) distance (getpos _unit) < 1)) then {
 						[_unit, _anim, _snap] call acpl_play_anim;
 					};
+				};
+			};
+			if (_rearm) then {
+				if ((acpl_dostop_ammo_rearm * _ammo_count) > (count (magazines _unit))) then {
+					{_unit removeMagazineGlobal _x;} foreach _ammo_start;
+					{_unit addMagazine _x;} foreach _ammo_start;
 				};
 			};
 		};
