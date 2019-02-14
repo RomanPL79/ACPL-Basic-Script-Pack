@@ -1,7 +1,7 @@
 if (!isserver) exitwith {};
 
 acpl_loop = {
-	private ["_playable", "_static"];
+	private ["_playable", "_static", "_acpl_menu", "_hidebody"];
 	
 	_static = _this select 0;
 	
@@ -30,6 +30,8 @@ acpl_loop = {
 	publicvariable "acpl_arty_bateries";
 	
 	_hidebody = ["acpl_hidebody", "Ukryj Ciało", "acpl_icons\hide.paa", {[_target] remoteExec ["hideBody",0,true];}, {!(alive _target)}] call ace_interact_menu_fnc_createAction;
+	
+	_acpl_menu = ["acpl_menu", "ACPL", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 	
 	private ["_arty_call", "_arty_call_correction", "_arty_rounds_7", "_arty_rounds_6", "_arty_rounds_5", "_arty_rounds_4", "_arty_rounds_3", "_arty_rounds_2", "_arty_rounds_1", "_arty_typeoffire_point", "_arty_typeoffire_line", "_arty_typeoffire_circle", "_arty_ammo_guided", "_arty_ammo_flare", "_arty_ammo_lg", "_arty", "_arty_battery", "_arty_ammo", "_arty_typeoffire", "_arty_rounds", "_arty_correction", "_arty_call", "_arty_ammo_he", "_arty_ammo_smoke", "_arty_ammo_cluster", "_arty_ammo_mine", "_arty_ammo_mineat"];
 	
@@ -530,18 +532,20 @@ acpl_loop = {
 			};
 			
 			if (_x in acpl_radio_added) then {} else {
-				[[(_x), 1, ["ACE_SelfActions"], _radio],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
-				[[(_x), 1, ["ACE_SelfActions","acpl_radio_menu"], _radio_lower_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
-				[[(_x), 1, ["ACE_SelfActions","acpl_radio_menu"], _radio_onhead_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
-				[[(_x), 1, ["ACE_SelfActions","acpl_radio_menu"], _radio_lower_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
-				[[(_x), 1, ["ACE_SelfActions","acpl_radio_menu"], _radio_onhead_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions"], _acpl_menu],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu"], _radio],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu","acpl_radio_menu"], _radio_lower_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu","acpl_radio_menu"], _radio_onhead_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu","acpl_radio_menu"], _radio_lower_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu","acpl_radio_menu"], _radio_onhead_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
 				[[(_x), 0, ["ACE_MainActions"], _radio_2],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
 				[[(_x), 0, ["ACE_MainActions","acpl_radio_menu_2"], _radio_ask_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
 				[[(_x), 0, ["ACE_MainActions","acpl_radio_menu_2"], _radio_ask_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
-				[[(_x), 1, ["ACE_SelfActions","acpl_radio_menu"], _radio_asked_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
-				[[(_x), 1, ["ACE_SelfActions","acpl_radio_menu"], _radio_asked_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
-				[[(_x), 1, ["ACE_SelfActions","acpl_radio_menu"], _radio_return_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
-				[[(_x), 1, ["ACE_SelfActions","acpl_radio_menu"], _radio_return_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu","acpl_radio_menu"], _radio_asked_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu","acpl_radio_menu"], _radio_asked_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu","acpl_radio_menu"], _radio_return_sw],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu","acpl_radio_menu"], _radio_return_lr],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
 				_x setvariable ["acpl_radio_lower_sw",false,true];
 				_x setvariable ["acpl_radio_volume_sw",100,true];
 				_x setvariable ["acpl_radio_lower_lr",false,true];
@@ -778,7 +782,7 @@ acpl_loop = {
 				{[_x,"move"] remoteExec ["disableAI",0];} foreach _playable;
 				
 				_action = ["acpl_ai_action", "Odblokuj AI", "acpl_icons\run.paa", {{[_x,"move"] remoteExec ["enableAI",0];} foreach (units (group _player));hint "Odblokowałeś AI w swojej grupie";}, {_player == leader (group _player)}] call ace_interact_menu_fnc_createAction;
-				[[(_x), 1, ["ACE_SelfActions"], _action],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
+				[[(_x), 1, ["ACE_SelfActions", "acpl_menu"], _action],ace_interact_menu_fnc_addActionToObject] remoteExec ["call",0,true];
 				
 				acpl_static_done = acpl_static_done + [_x];
 				publicvariable "acpl_static_done";
