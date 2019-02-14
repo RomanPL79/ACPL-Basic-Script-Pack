@@ -1,7 +1,7 @@
 private ["_type","_vcom","_static","_playable","_action","_ied_init","_safe_start","_text","_version"];
 
 //Podstawowe skrypty ACPL
-//v1.1e
+//v1.1h
 
 _type = _this select 0;
 acpl_medical_mc = _this select 1;
@@ -12,7 +12,10 @@ _ied_init = _this select 5;
 _safe_start = _this select 6;
 _text = _this select 7;
 
-_version = "v1.1e";
+_version = "v1.1h";
+
+acpl_fncs_initied = false;
+acpl_mainloop_done = false;
 
 acpl_fnc_debug = true;
 publicvariable "acpl_fnc_debug";
@@ -23,6 +26,8 @@ publicvariable "acpl_custommarkers";
 if (acpl_fnc_debug) then {["ACPL FNCS INITIATION"] remoteExec ["systemchat",0];};
 
 [1600] remoteExec ["setViewDistance",0];
+
+[] execVM "briefing.sqf";
 
 if (!isserver) exitwith {};
 
@@ -60,8 +65,10 @@ if (_ied_init) then {
 
 acpl_dostop_weap_chance = 50;					//Szansa w % na wyciągnięcie broni przez przeciwnika z ukrytą bronią. Im więcej przeciwników jednostki w pobliżu tym szansa sie zmniejsza o x ludzi
 acpl_dostop_weap_distance = 30;					//Odłegłość w której musi być przeciwnik aby jednostka z ukrytą bronią zaczeła się zastanawiać nad wyjęciem broni
-acpl_dostop_retreat_chance = 75;				//Szansa w % na ucieczkę z zajmowaniej pozycji przez jednostke (dodatkowo wpływa na nią odwaga jednostki)
+acpl_dostop_retreat_chance = 30;				//Szansa w % na ucieczkę z zajmowaniej pozycji przez jednostke (dodatkowo wpływa na nią odwaga jednostki)
 acpl_dostop_retreat_distance = 30;				//Odległość w jakiej musi być przeciwnik aby rozważyć ucieczkę
+acpl_dostop_retreat_distance = 30;				//Odległość w jakiej musi być przeciwnik aby rozważyć ucieczkę
+acpl_dostop_ammo_rearm = 0.5;					//Ile % amunicji musi zostać zużyte aby ją uzupełnić
 
 {publicvariable _x;} foreach ["acpl_dostop_weap_chance","acpl_dostop_weap_distance","acpl_dostop_retreat_chance","acpl_dostop_retreat_distance"];
 
@@ -121,7 +128,7 @@ acpl_msc_resistance_reload = [0.1, 0.2];		//Prędkość przeładowania
 
 acpl_betterAI_detection = 1;					//Wartość powyżej której jednostka 'widzi' przeciwnika
 acpl_betterAI_detection_time = 10;				//Czas po którym jednostka wykrywa przeciwnika globalnie
-acpl_betterAI_morale_enabled = true;			//Włacznik systemu morali (im mniejsze morale tym przeciwnik gorzej walczy)
+acpl_betterAI_morale_enabled = false;			//Włacznik systemu morali (im mniejsze morale tym przeciwnik gorzej walczy)
 acpl_betterAI_morale_changer = 0.4;				//Jak bardzo morale mogą wpłynąć na skill AI
 
 acpl_betterAI_startmorale_blue = 100;			//Początkowe morale dla WEST
@@ -169,12 +176,12 @@ acpl_epinephrine_med = 20;
 acpl_morphine_med = 20;
 acpl_packingBandage_med = 20;
 acpl_personalAidKit_med = 0;
-acpl_plasmaIV_med = 2;
+acpl_plasmaIV_med = 0;
 acpl_plasmaIV_250_med = 0;
-acpl_plasmaIV_500_med = 4;
+acpl_plasmaIV_500_med = 3;
 acpl_salineIV_med = 0;
 acpl_salineIV_250_med = 0;
-acpl_salineIV_500_med = 0;
+acpl_salineIV_500_med = 3;
 acpl_tourniquet_med = 4;
 acpl_surgicalKit_med = 0;
 acpl_bloodIV_250_med = 0;
