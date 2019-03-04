@@ -5,6 +5,8 @@ _tp = _this select 1;
 
 if (!isserver) exitwith {};
 
+if (isNil "acpl_safestart_inited") then {acpl_safestart_inited = false};
+
 waitUntil {acpl_safestart_inited};
 
 //_nul = [this,unit] execVM "acpl_fncs\acpl_safestart.sqf";
