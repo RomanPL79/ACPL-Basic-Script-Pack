@@ -1,15 +1,15 @@
-private ["_unit", "_animset", "_forcedSnapPoint", "_interpolate", "_attach"];
+params ["_unit", "_animset", ["_forcedSnapPoint", objNull], ["_interpolate", false], ["_attach", true]];
 
 /*
 	Pierwotny Autor: Jiri Wainar
 	Poprawiono przez: Roman79
 
 	Opis:
-	W≥πcza wybranπ animacje dla podanej jednostki.
+	W≈ÇƒÖcza wybranƒÖ animacje dla podanej jednostki.
 
 	Parametry:
-	0: OBJECT - jednostka na ktÛrej wyúwietli siÍ animacja
-	1: STRING - id listy animacji spoúrÛd ktÛrych wylosuje animacje.
+	0: OBJECT - jednostka na kt√≥rej wy≈õwietli siƒô animacja
+	1: STRING - id listy animacji spo≈õr√≥d kt√≥rych wylosuje animacje.
 	   > "STAND"		- standing still, slightly turning to the sides, with rifle weapon
 	   > "STAND_IA"		- standing still, slightly turning to the sides, with rifle weapon
 	   > "STAND_U1-3"	- standing still, slightly turning to the sides, no weapon
@@ -37,22 +37,18 @@ private ["_unit", "_animset", "_forcedSnapPoint", "_interpolate", "_attach"];
 	   > "REPAIR_VEH_KNEEL"	- repairing vehicle while kneeling (like changing a wheel)
 	   > "REPAIR_VEH_STAND"	- repairing/cleaning a vehicle while standing
 
-	2: OBJECT - Obiekt do ktÛrego zostanie przeczepiona jednostka
+	2: OBJECT - Obiekt do kt√≥rego zostanie przeczepiona jednostka
 
 	3: True/false 	- function will try to interpolate into the ambient animation, if the interpolateTo link exists
 
-	Przyk≥ad:
-	[this,"SIT_HIGH2"] call BIS_fnc_ambientAnim;
+	Przyk≈Çad:
+	[this,"SIT_HIGH2"] execVM "acpl_fncs\playanim.sqf";
 */
 
 if (!isserver) exitwith {};
 
-waitUntil {acpl_fncs_initied};
+if (isNil "acpl_fncs_initied") then {acpl_fncs_initied = false};
 
-_unit = _this select 0;
-_animset = _this select 1;
-if (isNil {_this select 2}) then {_forcedSnapPoint = objNull;} else {_forcedSnapPoint = _this select 2;};
-if (isNil {_this select 3}) then {_interpolate = false;} else {_interpolate = _this select 3;};
-if (isNil {_this select 4}) then {_attach = true;} else {_attach = _this select 4;};
+waitUntil {acpl_fncs_initied};
 
 [_unit, _animset, _forcedSnapPoint, _interpolate, _attach] call acpl_play_anim;
