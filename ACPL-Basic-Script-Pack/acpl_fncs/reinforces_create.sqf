@@ -8,6 +8,8 @@ _name = _this select 1;
 
 if (!isserver) exitwith {};
 
+if (isNil "acpl_fncs_initied") then {acpl_fncs_initied = false};
+
 waitUntil {acpl_fncs_initied};
 
 missionNamespace setvariable [_name,[],true];
