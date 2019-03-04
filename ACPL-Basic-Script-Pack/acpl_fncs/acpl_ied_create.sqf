@@ -10,6 +10,8 @@ if (!isserver) exitwith {};
 //_nul = [this,ied,"ACE_Cellphone",true] execVM "acpl_fncs\acpl_ied_create.sqf";
 //1.0
 
+if (isNil "acpl_fncs_initied") then {acpl_fncs_initied = false};
+
 waitUntil {acpl_fncs_initied};
 
 _enemies = [_unit] call acpl_check_enemy;
