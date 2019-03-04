@@ -1,7 +1,7 @@
 private ["_type","_vcom","_static","_playable","_action","_ied_init","_safe_start","_text","_version"];
 
 //Podstawowe skrypty ACPL
-//v1.1h
+//v1.1j
 
 _type = _this select 0;
 acpl_medical_mc = _this select 1;
@@ -12,7 +12,7 @@ _ied_init = _this select 5;
 _safe_start = _this select 6;
 _text = _this select 7;
 
-_version = "v1.1h";
+_version = "v1.1j";
 
 acpl_fncs_initied = false;
 acpl_mainloop_done = false;
@@ -27,9 +27,10 @@ if (acpl_fnc_debug) then {["ACPL FNCS INITIATION"] remoteExec ["systemchat",0];}
 
 [1600] remoteExec ["setViewDistance",0];
 
-[] execVM "briefing.sqf";
-
 if (!isserver) exitwith {};
+
+[] execVM "briefing.sqf";
+if (acpl_fnc_debug) then {["BRIEFING LOADED"] remoteExec ["systemchat",0];};
 
 _nul = [_version] execVM "acpl_info_init.sqf";
 
@@ -166,6 +167,8 @@ acpl_morphine_sol = 0;
 acpl_packingBandage_sol = 2;
 acpl_personalAidKit_sol = 0;
 acpl_tourniquet_sol = 1;
+acpl_plasmaIV_500_sol = 0;
+acpl_salineIV_500_sol = 0;
 
 //Dla medyka
 acpl_fieldDressing_med = 10;
@@ -245,7 +248,7 @@ if (_type == 1) then {
 	{publicvariable _x;} foreach ["acpl_ww2_change_m1garand", "acpl_ww2_change_leeenfield"];
 };
 
-{publicvariable _x;} foreach ["acpl_fieldDressing_sol","acpl_elasticBandage_sol","acpl_adenosine_sol","acpl_atropine_sol","acpl_epinephrine_sol","acpl_morphine_sol","acpl_packingBandage_sol","acpl_personalAidKit_sol","acpl_tourniquet_sol"];
+{publicvariable _x;} foreach ["acpl_salineIV_500_sol","acpl_plasmaIV_500_sol","acpl_fieldDressing_sol","acpl_elasticBandage_sol","acpl_adenosine_sol","acpl_atropine_sol","acpl_epinephrine_sol","acpl_morphine_sol","acpl_packingBandage_sol","acpl_personalAidKit_sol","acpl_tourniquet_sol"];
 {publicvariable _x;} foreach ["acpl_fieldDressing_AI","acpl_elasticBandage_AI","acpl_adenosine_AI","acpl_atropine_AI","acpl_epinephrine_AI","acpl_morphine_AI","acpl_packingBandage_AI","acpl_personalAidKit_AI","acpl_tourniquet_AI"];
 {publicvariable _x;} foreach ["acpl_bloodIV_250_med_AI","acpl_surgicalKit_med_AI","acpl_tourniquet_med_AI","acpl_salineIV_500_med_AI","acpl_salineIV_250_med_AI","acpl_salineIV_med_AI","acpl_plasmaIV_500_med_AI","acpl_plasmaIV_250_med_AI","acpl_plasmaIV_med_AI","acpl_fieldDressing_med_AI","acpl_elasticBandage_med_AI","acpl_adenosine_med_AI","acpl_atropine_med_AI","acpl_epinephrine_med_AI","acpl_morphine_med_AI","acpl_packingBandage_med_AI","acpl_personalAidKit_med_AI"];
 {publicvariable _x;} foreach ["acpl_bloodIV_250_med","acpl_surgicalKit_med","acpl_tourniquet_med","acpl_salineIV_500_med","acpl_salineIV_250_med","acpl_salineIV_med","acpl_plasmaIV_500_med","acpl_plasmaIV_250_med","acpl_plasmaIV_med","acpl_fieldDressing_med","acpl_elasticBandage_med","acpl_adenosine_med","acpl_atropine_med","acpl_epinephrine_med","acpl_morphine_med","acpl_packingBandage_med","acpl_personalAidKit_med"];
