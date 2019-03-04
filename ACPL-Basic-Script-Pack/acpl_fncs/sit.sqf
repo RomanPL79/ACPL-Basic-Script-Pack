@@ -3,13 +3,16 @@ private [];
 _unit = _this select 0;
 
 //_nul = [this] execVM "acpl_fncs\sit.sqf";
-//v1.0
+//v1.0a
 
 if (!isserver) exitwith {};
 
+{[_unit,_x] remoteExec ["DisableAI",0];} foreach ["MOVE", "PATH", "AUTOCOMBAT", "TARGET", "AUTOTARGET"];
+
+if (isNil "acpl_fncs_initied") then {acpl_fncs_initied = false};
+
 waitUntil {acpl_fncs_initied};
 
-{[_unit,_x] remoteExec ["DisableAI",0];} foreach ["MOVE", "PATH", "AUTOCOMBAT", "TARGET", "AUTOTARGET"];
 sleep 1;
 _unit action ["sitDown", _unit];
 _unit setvariable ["acpl_sitting",true,false];
