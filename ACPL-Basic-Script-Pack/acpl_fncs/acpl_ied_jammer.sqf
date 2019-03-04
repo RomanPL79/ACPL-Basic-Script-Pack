@@ -9,6 +9,8 @@ if (!isserver) exitwith {};
 //_nul = [this,["phone","clacker"],false] execVM "acpl_fncs\acpl_ied_jammer.sqf";
 //1.0
 
+if (isNil "acpl_fncs_initied") then {acpl_fncs_initied = false};
+
 waitUntil {acpl_fncs_initied};
 
 _acpl_ied_jammer_menu = ["acpl_ied_jammer_menu", "IED Jammer", "", {}, {true}] call ace_interact_menu_fnc_createAction;
