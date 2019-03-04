@@ -16,7 +16,7 @@ params [
 ];
 
 //_nul = [this,"up",true,false,false,false,false,true] execVM "acpl_fncs\dostop.sqf";
-//v2.3
+//v2.3a
 
 if (!isserver) exitwith {};
 
@@ -25,6 +25,8 @@ _start_dir = getDir _unit;
 [_unit,"MOVE"] remoteExec ["EnableAI",0];
 [_unit,"PATH"] remoteExec ["DisableAI",0];
 [_unit,"AUTOCOMBAT"] remoteExec ["DisableAI",0];
+
+if (isNil "acpl_fncs_initied") then {acpl_fncs_initied = false};
 
 waitUntil {acpl_fncs_initied};
 
