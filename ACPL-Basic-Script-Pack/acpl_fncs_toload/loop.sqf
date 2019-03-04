@@ -3,6 +3,8 @@ if (!isserver) exitwith {};
 acpl_loop = {
 	private ["_playable", "_static", "_acpl_menu", "_hidebody"];
 	
+	waitUntil {acpl_fncs_initied};
+	
 	_static = _this select 0;
 	
 	acpl_mainloop_done = false;
@@ -731,6 +733,8 @@ acpl_loop = {
 						for "_i" from 1 to acpl_packingBandage_sol do {[_x,"ACE_packingBandage"] remoteExec ["additem",_x];};
 						for "_i" from 1 to acpl_personalAidKit_sol do {[_x,"ACE_personalAidKit"] remoteExec ["additem",_x];};
 						for "_i" from 1 to acpl_tourniquet_sol do {[_x,"ace_tourniquet"] remoteExec ["additem",_x];};
+						for "_i" from 1 to acpl_plasmaIV_500_sol do {[_x,"ACE_plasmaIV_500"] remoteExec ["additem",_x];};
+						for "_i" from 1 to acpl_salineIV_500_sol do {[_x,"ACE_salineIV_500"] remoteExec ["additem",_x];};
 					};
 					acpl_medical_done = acpl_medical_done + [_x];
 					publicvariable "acpl_medical_done";
