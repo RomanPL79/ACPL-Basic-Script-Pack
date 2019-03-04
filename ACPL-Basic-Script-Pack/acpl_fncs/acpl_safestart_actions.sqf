@@ -5,6 +5,8 @@ _timechange = _this select 1;
 
 if (!isserver) exitwith {};
 
+if (isNil "acpl_safestart_inited") then {acpl_safestart_inited = false};
+
 waitUntil {acpl_safestart_inited};
 
 //_nul = [this,true] execVM "acpl_fncs\acpl_safestart_actions.sqf";
@@ -17,7 +19,7 @@ if (_timechange) then {
 	private ["_czas_menu","_czas_1h","_czas_2h","_czas_4h","_czas_8h","_czas_12h"];
 	
 	_czas_menu = ["acpl_safestart_czas_menu", "Poczekaj...", "", {}, {acpl_safestart}] call ace_interact_menu_fnc_createAction;
-	_czas_1h = ["acpl_safestart_czas_1h", "Godzinê", "", {[[1],acpl_safestart_wait] remoteExec ["call",2];}, {acpl_safestart}] call ace_interact_menu_fnc_createAction;
+	_czas_1h = ["acpl_safestart_czas_1h", "GodzinÄ™", "", {[[1],acpl_safestart_wait] remoteExec ["call",2];}, {acpl_safestart}] call ace_interact_menu_fnc_createAction;
 	_czas_2h = ["acpl_safestart_czas_2h", "2 Godziny", "", {[[2],acpl_safestart_wait] remoteExec ["call",2];}, {acpl_safestart}] call ace_interact_menu_fnc_createAction;
 	_czas_4h = ["acpl_safestart_czas_4h", "4 Godziny", "", {[[4],acpl_safestart_wait] remoteExec ["call",2];}, {acpl_safestart}] call ace_interact_menu_fnc_createAction;
 	_czas_8h = ["acpl_safestart_czas_8h", "8 Godzin", "", {[[8],acpl_safestart_wait] remoteExec ["call",2];}, {acpl_safestart}] call ace_interact_menu_fnc_createAction;
