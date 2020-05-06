@@ -19,7 +19,7 @@ private _intro = {
 		waitUntil {!psz_safestart};
 		titleCut ["","BLACK",0.2];
 	};
-	playMusic "AmbientTrack01a_F";
+	//playMusic "AmbientTrack01a_F";
 	titleCut ["","BLACK IN",8];
 	sleep 6;
 	[localize "STR_PSZ_Mission_authors_l1", localize "STR_PSZ_Mission_authors_l2", localize "STR_PSZ_Mission_authors_l3"] spawn BIS_fnc_infoText;
